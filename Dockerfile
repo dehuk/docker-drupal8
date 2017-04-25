@@ -32,4 +32,4 @@ RUN { \
         echo ''; \
     } > /usr/local/etc/php/conf.d/drupal-php.ini
 
-RUN apt-get update && apt-get install -y openssh-client
+RUN apt-get update && apt-get install -y openssh-client rsync
