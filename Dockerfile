@@ -15,14 +15,9 @@ RUN php -r "readfile('https://s3.amazonaws.com/files.drush.org/drush.phar');" > 
     && chmod +x drush \
     && mv drush /usr/local/bin
 
-RUN { \
-		echo 'opcache.memory_consumption=128'; \
-		echo 'opcache.interned_strings_buffer=8'; \
-		echo 'opcache.max_accelerated_files=4000'; \
-		echo 'opcache.revalidate_freq=60'; \
-		echo 'opcache.fast_shutdown=1'; \
-		echo 'opcache.enable_cli=1'; \
-	} > /usr/local/etc/php/conf.d/opcache-recommended.ini
+RUN curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer \
+    && chmod +x /usr/local/bin/composer
 
 RUN { \
         echo 'post_max_size=250M'; \
@@ -31,8 +26,10 @@ RUN { \
         echo 'session.cache_limiter = nocache'; \
         echo 'session.auto_start = 0'; \
         echo 'expose_php = off'; \
-        echo 'allow_url_fopen = off'; \
+        echo 'allow_url_fopen = on'; \
         echo 'magic_quotes_gpc = off'; \
         echo 'register_globals = off'; \
         echo ''; \
     } > /usr/local/etc/php/conf.d/drupal-php.ini
+
+RUN apt-get install -y openssh-server
