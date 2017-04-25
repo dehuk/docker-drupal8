@@ -32,4 +32,4 @@ RUN { \
         echo ''; \
     } > /usr/local/etc/php/conf.d/drupal-php.ini
 
-RUN apt-get install -y openssh-server
+RUN apt-get update && apt-get install -y openssh-client
