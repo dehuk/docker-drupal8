@@ -8,8 +8,6 @@ RUN set -ex \
 		libjpeg62-turbo-dev \
 		libpng12-dev \
 		libpq-dev \
-		mysql-client \
-		rsync \
 	' \
 	&& apt-get update && apt-get install -y --no-install-recommends $buildDeps && rm -rf /var/lib/apt/lists/* \
 	&& docker-php-ext-configure gd \
@@ -19,8 +17,9 @@ RUN set -ex \
 	&& apt-mark manual \
 		libjpeg62-turbo \
 		libpq5 \
-	&& apt-get install -y mysql-client libfreetype6-dev \
 	&& apt-get purge -y --auto-remove $buildDeps
+
+RUN apt-get update && apt-get install -y mysql-client libfreetype6-dev rsync
 
 RUN php -r "readfile('https://s3.amazonaws.com/files.drush.org/drush.phar');" > drush \
     && chmod +x drush \
