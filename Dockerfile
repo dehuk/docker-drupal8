@@ -9,7 +9,6 @@ RUN set -ex \
 		libpng12-dev \
 		libpq-dev \
 		mysql-client \
-		openssh-client \
 		rsync \
 	' \
 	&& apt-get update && apt-get install -y --no-install-recommends $buildDeps && rm -rf /var/lib/apt/lists/* \
@@ -20,6 +19,7 @@ RUN set -ex \
 	&& apt-mark manual \
 		libjpeg62-turbo \
 		libpq5 \
+	&& apt-get install mysql-client \
 	&& apt-get purge -y --auto-remove $buildDeps
 
 RUN php -r "readfile('https://s3.amazonaws.com/files.drush.org/drush.phar');" > drush \
