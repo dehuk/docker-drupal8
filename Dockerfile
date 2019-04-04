@@ -19,7 +19,7 @@ RUN set -ex \
 		libpq5 \
 	&& apt-get purge -y --auto-remove $buildDeps
 
-RUN apt-get update && apt-get install -y mysql-client libfreetype6-dev rsync
+RUN apt-get update && apt-get install -y mysql-client libfreetype6-dev rsync ssh
 
 RUN php -r "readfile('https://s3.amazonaws.com/files.drush.org/drush.phar');" > drush \
     && chmod +x drush \
